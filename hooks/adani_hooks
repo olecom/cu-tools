@@ -1,0 +1,27 @@
+#!/bin/sh
+
+prereqs() { echo "$PREREQS"; }
+
+case "$1" in
+    prereqs)
+        prereqs
+        exit 0
+    ;;
+    mkimg)
+        rm /dev/shm/initramfs-*
+        mkinitramfs -o /dev/shm/initramfs-$(uname -r).img
+        tar -czf /dev/shm/initramfs-tools.tar.gz /usr/share/initramfs-tools
+        exit 0
+    ;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+set -x
+
+# use usual '/boot'
+mkdir $DESTDIR/boot/
+# copy needed shared libs & update ld cache
+copy_exec /root/bin/node /boot/
+# `node` binary is available on Flash drive with the application code
+rm $DESTDIR/boot/node
