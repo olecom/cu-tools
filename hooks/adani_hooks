@@ -25,3 +25,6 @@ mkdir $DESTDIR/boot/
 copy_exec /root/bin/node /boot/
 # `node` binary is available on Flash drive with the application code
 rm $DESTDIR/boot/node
+
+# cleanup not needed stuff
+rm $DESTDIR/bin/ifconfig
