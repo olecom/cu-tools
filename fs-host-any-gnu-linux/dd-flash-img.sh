@@ -11,6 +11,6 @@ Destination device: $DST
     echo "Start flashing $DST? [y/n]"
     read A
     set -x
-    [ y = "$A" ] && dd "if=`echo *.img`" "of=$DST" bs=2M
+    [ y = "$A" ] && dd "if=`echo *.img`" "of=$DST" bs=1M conv=fsync
     set +x
 }
