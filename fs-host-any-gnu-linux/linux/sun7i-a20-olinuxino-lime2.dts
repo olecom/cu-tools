@@ -238,7 +238,7 @@
 	regulator-name = "vddio-csi0";
 	regulator-soft-start;
 	regulator-ramp-delay = <1600>;
-    /* Power PORTE */
+	/* PORTE power */
 	regulator-always-on;
 	regulator-boot-on;
 };
@@ -247,6 +247,11 @@
 	regulator-min-microvolt = <2800000>;
 	regulator-max-microvolt = <2800000>;
 	regulator-name = "vddio-csi1";
+	regulator-soft-start;
+	regulator-ramp-delay = <1600>;
+	/* PORTG power */
+	regulator-always-on;
+	regulator-boot-on;
 };
 
 &reg_usb0_vbus {
