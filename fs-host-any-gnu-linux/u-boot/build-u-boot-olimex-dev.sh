@@ -26,4 +26,6 @@ make CROSS_COMPILE=arm-linux-gnueabihf-
 }
 # install:
 set -x
+# go to own directory
+cd "${0%/*}" 2>/dev/null
 dd if=`echo u-boot-sunxi-with-spl.bin*` of=/dev/sdb bs=1024 seek=8 conv=fsync
