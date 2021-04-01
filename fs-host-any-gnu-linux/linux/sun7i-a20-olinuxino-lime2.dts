@@ -1,6 +1,6 @@
 /*
  * Copyright 2014 - Iain Paton <ipaton0@gmail.com>
- *
+ *      2020,2021 - Oleg Verych <olecom@gmail.com>
  * This file is dual-licensed: you can use it either under the terms
  * of the GPL or the X11 license, at your option. Note that this dual
  * licensing only applies to this file, and not this project as a
@@ -114,16 +114,6 @@
 	phy-handle = <&phy1>;
 	phy-mode = "rgmii";
 	status = "okay";
-};
-
-&hdmi {
-	status = "okay";
-};
-
-&hdmi_out {
-	hdmi_out_con: endpoint {
-		remote-endpoint = <&hdmi_con_in>;
-	};
 };
 
 &i2c0 {
@@ -284,9 +274,5 @@
 	usb0_vbus-supply = <&reg_usb0_vbus>;
 	usb1_vbus-supply = <&reg_usb1_vbus>;
 	usb2_vbus-supply = <&reg_usb2_vbus>;
-	status = "okay";
-};
-
-&csi0 {
 	status = "okay";
 };
