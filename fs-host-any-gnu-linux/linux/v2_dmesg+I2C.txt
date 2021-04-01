@@ -1,0 +1,252 @@
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 5.7.0-rc1-adani-olimex-2020-v1-g8f3d9f354-dirty (olecom@olecom-VirtualBox) (gcc version 8.3.0 (Ubuntu/Linaro 8.3.0-6ubuntu1), GNU ld (GNU Binutils for Ubuntu) 2.32) #21 SMP Fri Sep 11 23:13:51 +03 2020
+[    0.000000] CPU: ARMv7 Processor [410fc074] revision 4 (ARMv7), cr=10c5387d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] OF: fdt: Machine model: Olimex A20-OLinuXino-LIME2
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] Reserved memory: created CMA memory pool at 0x4a000000, size 96 MiB
+[    0.000000] OF: reserved mem: initialized node default-pool, compatible id shared-dma-pool
+[    0.000000] On node 0 totalpages: 261376
+[    0.000000]   Normal zone: 2042 pages used for memmap
+[    0.000000]   Normal zone: 0 pages reserved
+[    0.000000]   Normal zone: 261376 pages, LIFO batch:63
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: Using PSCI v0.1 Function IDs from DT
+[    0.000000] percpu: Embedded 15 pages/cpu s30028 r8192 d23220 u61440
+[    0.000000] pcpu-alloc: s30028 r8192 d23220 u61440 alloc=15*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 259334
+[    0.000000] Kernel command line: console=tty0 loglevel=7 disp.screen0_output_mode=640x480p60 sunxi_ve_mem_reserve=0 sunxi_g2d_mem_reserve=0 sunxi_fb_mem_reserve=16
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 924900K/1045504K available (6144K kernel code, 236K rwdata, 1216K rodata, 1024K init, 229K bss, 22300K reserved, 98304K cma-reserved, 0K highmem)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] random: get_random_bytes called from 0x80900ff8 with crng_init=0
+[    0.000000] arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    0.000008] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    0.000021] Switching to timer-based delay loop, resolution 41ns
+[    0.000432] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+[    0.000768] clocksource: hstimer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+[    0.001042] Console: colour dummy device 80x30
+[    0.001461] printk: console [tty0] enabled
+[    0.001504] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=240000)
+[    0.001536] pid_max: default: 32768 minimum: 301
+[    0.001718] Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.001753] Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.002499] CPU: Testing write buffer coherency: ok
+[    0.002901] /cpus/cpu@0 missing clock-frequency property
+[    0.002943] /cpus/cpu@1 missing clock-frequency property
+[    0.002965] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+[    0.003636] Setting up static identity map for 0x40100000 - 0x40100060
+[    0.003801] rcu: Hierarchical SRCU implementation.
+[    0.004180] smp: Bringing up secondary CPUs ...
+[    0.015007] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+[    0.015161] smp: Brought up 1 node, 2 CPUs
+[    0.015204] SMP: Total of 2 processors activated (96.00 BogoMIPS).
+[    0.015220] CPU: All CPU(s) started in HYP mode.
+[    0.015233] CPU: Virtualization extensions available.
+[    0.016088] devtmpfs: initialized
+[    0.021980] VFP support v0.3: implementor 41 architecture 2 part 30 variant 7 rev 4
+[    0.022296] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.022353] futex hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.025891] pinctrl core: initialized pinctrl subsystem
+[    0.026671] thermal_sys: Registered thermal governor 'step_wise'
+[    0.027562] NET: Registered protocol family 16
+[    0.029163] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.030394] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.030432] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.050282] SCSI subsystem initialized
+[    0.050582] usbcore: registered new interface driver usbfs
+[    0.050645] usbcore: registered new interface driver hub
+[    0.050748] usbcore: registered new device driver usb
+[    0.050869] mc: Linux media interface: v0.10
+[    0.050914] videodev: Linux video capture interface: v2.00
+[    0.050976] pps_core: LinuxPPS API ver. 1 registered
+[    0.050992] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.051028] PTP clock support registered
+[    0.052472] clocksource: Switched to clocksource arch_sys_counter
+[    0.060397] NET: Registered protocol family 2
+[    0.061047] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 6144 bytes, linear)
+[    0.061105] TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.061201] TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.061338] TCP: Hash tables configured (established 8192 bind 8192)
+[    0.061508] UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.061594] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.061859] NET: Registered protocol family 1
+[    0.062830] RPC: Registered named UNIX socket transport module.
+[    0.062874] RPC: Registered udp transport module.
+[    0.062889] RPC: Registered tcp transport module.
+[    0.062903] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.063248] Unpacking initramfs...
+[    0.269765] Freeing initrd memory: 3196K
+[    0.270265] hw perfevents: no interrupt-affinity property for /pmu, guessing.
+[    0.270640] hw perfevents: enabled with armv7_cortex_a7 PMU driver, 5 counters available
+[    0.272238] workingset: timestamp_bits=30 max_order=18 bucket_order=0
+[    0.277946] NFS: Registering the id_resolver key type
+[    0.278027] Key type id_resolver registered
+[    0.278042] Key type id_legacy registered
+[    0.278155] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+[    0.278182] io scheduler mq-deadline registered
+[    0.278198] io scheduler kyber registered
+[    0.281764] sun4i-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
+[    0.295698] sun4i-drm display-engine: bound 1e00000.display-frontend (ops 0x807552e0)
+[    0.295850] sun4i-drm display-engine: bound 1e20000.display-frontend (ops 0x807552e0)
+[    0.296274] sun4i-drm display-engine: bound 1e60000.display-backend (ops 0x80754b24)
+[    0.296646] sun4i-drm display-engine: bound 1e40000.display-backend (ops 0x80754b24)
+[    0.297131] sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+[    0.297169] sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops 0x80753684)
+[    0.297595] sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+[    0.297633] sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops 0x80753684)
+[    0.298102] sun4i-drm display-engine: bound 1c16000.hdmi (ops 0x8075597c)
+[    0.298148] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[    0.298765] [drm] Initialized sun4i-drm 1.0.0 20150629 for display-engine on minor 0
+[    0.374691] Console: switching to colour frame buffer device 128x48
+[    0.390707] sun4i-drm display-engine: fb0: sun4i-drmdrmfb frame buffer device
+[    0.392777] libphy: Fixed MDIO Bus: probed
+[    0.393519] CAN device driver interface
+[    0.394420] sun7i-dwmac 1c50000.ethernet: IRQ eth_wake_irq not found
+[    0.394595] sun7i-dwmac 1c50000.ethernet: IRQ eth_lpi not found
+[    0.394871] sun7i-dwmac 1c50000.ethernet: PTP uses main clock
+[    0.395025] sun7i-dwmac 1c50000.ethernet: no reset control found
+[    0.395204] sun7i-dwmac 1c50000.ethernet: no regulator found
+[    0.395727] sun7i-dwmac 1c50000.ethernet: Version ID not available
+[    0.395910] sun7i-dwmac 1c50000.ethernet: 	DWMAC1000
+[    0.396037] sun7i-dwmac 1c50000.ethernet: DMA HW capability register supported
+[    0.396211] sun7i-dwmac 1c50000.ethernet: Normal descriptors
+[    0.396348] sun7i-dwmac 1c50000.ethernet: Ring mode enabled
+[    0.401691] libphy: stmmac: probed
+[    0.413725] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.418557] ehci-platform: EHCI generic platform driver
+[    0.423979] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.428833] ohci-platform: OHCI generic platform driver
+[    0.435870] sunxi-rtc 1c20d00.rtc: registered as rtc0
+[    0.440711] sunxi-rtc 1c20d00.rtc: setting system clock to 1970-01-01T02:39:50 UTC (9590)
+[    0.445793] i2c /dev entries driver
+[    0.451139] sun4i-pinctrl 1c20800.pinctrl: supply vcc-pb not found, using dummy regulator
+[    0.457137] axp20x-i2c 1-0034: AXP20x variant AXP209 found
+[    0.477023] input: axp20x-pek as /devices/platform/soc/1c2ac00.i2c/i2c-1/1-0034/axp20x-pek/input/input0
+[    0.483189] ldo1: supplied by regulator-dummy
+[    0.488493] ldo2: supplied by regulator-dummy
+[    0.494563] ldo3: supplied by regulator-dummy
+[    0.500739] ldo4: supplied by regulator-dummy
+[    0.505382] vddio-csi1: Bringing 3000000uV into 2800000-2800000uV
+[    0.510599] ldo5: supplied by regulator-dummy
+[    0.515824] dcdc2: supplied by regulator-dummy
+[    0.520979] dcdc3: supplied by regulator-dummy
+[    0.526702] axp20x-i2c 1-0034: AXP20X driver loaded
+[    0.532750] axp20x-battery-power-supply axp20x-battery-power-supply: DMA mask not set
+[    0.537308] axp20x-ac-power-supply axp20x-ac-power-supply: DMA mask not set
+[    0.542132] sunxi-wdt 1c20c90.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+[    0.550134] sun4i-pinctrl 1c20800.pinctrl: supply vcc-ph not found, using dummy regulator
+[    0.554531] sunxi-mmc 1c0f000.mmc: Got CD GPIO
+[    0.584206] sunxi-mmc 1c0f000.mmc: initialized, max. request size: 16384 KB
+[    0.589485] sun4i-ss 1c15000.crypto-engine: Die ID 0
+[    0.601049] random: fast init done
+[    0.634979] mmc0: host does not support reading read-only switch, assuming write-enable
+[    0.639841] hid: raw HID events driver (C) Jiri Kosina
+[    0.644377] mmc0: new high speed SDHC card at address aaaa
+[    0.648875] usbcore: registered new interface driver usbhid
+[    0.649378] mmcblk0: mmc0:aaaa SB32G 29.7 GiB 
+[    0.653059] usbhid: USB HID core driver
+[    0.661264] axp20x-adc axp20x-adc: DMA mask not set
+[    0.667009]  mmcblk0: p1
+[    0.672646] NET: Registered protocol family 17
+[    0.676767] can: controller area network core (rev 20170425 abi 9)
+[    0.680951] NET: Registered protocol family 29
+[    0.685117] can: raw protocol (rev 20170425)
+[    0.689216] can: broadcast manager protocol (rev 20170425 t)
+[    0.693403] can: netlink gateway (rev 20190810) max_hops=1
+[    0.697861] Key type dns_resolver registered
+[    0.702186] Registering SWP/SWPB emulation handler
+[    0.736071] Freeing unused kernel memory: 1024K
+[    0.792629] Run /init as init process
+[    0.796716]   with arguments:
+[    0.796721]     /init
+[    0.796724]   with environment:
+[    0.796727]     HOME=/
+[    0.796729]     TERM=linux
+[    0.796732]     sunxi_ve_mem_reserve=0
+[    0.796735]     sunxi_g2d_mem_reserve=0
+[    0.796738]     sunxi_fb_mem_reserve=16
+[    1.367844] sun4i probe
+[    1.368068] OF: graph: no port node found in /soc/csi@1c09000
+[    1.376286] sun4i-csi: probe of 1c09000.csi failed with error -22
+[    1.387962] ehci-platform 1c14000.usb: EHCI Host Controller
+[    1.391943] ehci-platform 1c14000.usb: new USB bus registered, assigned bus number 1
+[    1.395864] usb_phy_generic usb_phy_generic.0.auto: supply vcc not found, using dummy regulator
+[    1.396822] musb-hdrc musb-hdrc.1.auto: MUSB HDRC host driver
+[    1.403990] musb-hdrc musb-hdrc.1.auto: new USB bus registered, assigned bus number 2
+[    1.414838] ehci-platform 1c14000.usb: irq 33, io mem 0x01c14000
+[    1.419425] hub 2-0:1.0: USB hub found
+[    1.442647] ehci-platform 1c14000.usb: USB 2.0 started, EHCI 1.00
+[    1.465228] hub 2-0:1.0: 1 port detected
+[    1.503853] hub 1-0:1.0: USB hub found
+[    1.521405] hub 1-0:1.0: 1 port detected
+[    1.562143] ehci-platform 1c1c000.usb: EHCI Host Controller
+[    1.566472] ehci-platform 1c1c000.usb: new USB bus registered, assigned bus number 3
+[    1.593417] ehci-platform 1c1c000.usb: irq 38, io mem 0x01c1c000
+[    1.622579] ehci-platform 1c1c000.usb: USB 2.0 started, EHCI 1.00
+[    1.632702] hub 3-0:1.0: USB hub found
+[    1.640327] hub 3-0:1.0: 1 port detected
+[    1.651707] ohci-platform 1c14400.usb: Generic Platform OHCI controller
+[    1.655849] ohci-platform 1c14400.usb: new USB bus registered, assigned bus number 4
+[    1.675122] ohci-platform 1c14400.usb: irq 34, io mem 0x01c14400
+[    1.748235] hub 4-0:1.0: USB hub found
+[    1.756644] hub 4-0:1.0: 1 port detected
+[    1.762203] ohci-platform 1c1c400.usb: Generic Platform OHCI controller
+[    1.766254] ohci-platform 1c1c400.usb: new USB bus registered, assigned bus number 5
+[    1.776487] ohci-platform 1c1c400.usb: irq 39, io mem 0x01c1c400
+[    1.849967] hub 5-0:1.0: USB hub found
+[    1.855175] hub 5-0:1.0: 1 port detected
+[    1.926625] sun7i-dwmac 1c50000.ethernet eth0: PHY [stmmac-0:01] driver [Micrel KSZ9031 Gigabit PHY] (irq=POLL)
+[    1.932323] sun7i-dwmac 1c50000.ethernet eth0: No Safety Features support found
+[    1.936471] sun7i-dwmac 1c50000.ethernet eth0: RX IPC Checksum Offload disabled
+[    1.940457] sun7i-dwmac 1c50000.ethernet eth0: No MAC Management Counters available
+[    1.944453] sun7i-dwmac 1c50000.ethernet eth0: PTP not supported by HW
+[    1.948436] sun7i-dwmac 1c50000.ethernet eth0: configuring for phy/rgmii link mode
+[    3.501400] random: node: uninitialized urandom read (32 bytes read)
+[    5.290319] random: node: uninitialized urandom read (4096 bytes read)
+[   11.293093] sun7i-dwmac 1c50000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+[   12.409081] process '/bin/dmesg' started with executable stack
+i2c adapters:
+i2c-1	i2c       	mv64xxx_i2c adapter             	I2C adapter
+i2c-2	i2c       	mv64xxx_i2c adapter             	I2C adapter
+i2c-0	i2c       	sun4i_hdmi_i2c adapter          	I2C adapter
+==== i2c-0 ====:
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: 50 -- -- -- -- 55 -- -- -- -- 5a -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
+==== i2c-1 ====:
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- UU -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
+==== i2c-2 ====:
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: 50 51 52 53 54 55 56 57 -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
