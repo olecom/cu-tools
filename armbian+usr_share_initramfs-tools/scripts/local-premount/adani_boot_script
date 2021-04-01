@@ -8,17 +8,7 @@ case "${1}" in
     ;;
 esac
 
-# default networking
-ip link set up dev eth0
-ip addr add 192.168.1.22/16 dev eth0
-ip addr add 10.0.0.22/16 dev eth0
-
-# add compatible directory on RAM
-test -d /dev/shm/ || mkdir /dev/shm/
-
-# read-only Flash drive
-mount /dev/mmcblk0p1 /boot/ -oro
-
+# networking setup moved there as well
 test -f /boot/adani-cu-arm/run.sh && sh /boot/adani-cu-arm/run.sh
 
 # loop with interactive shell otherwise

@@ -19,12 +19,14 @@ esac
 
 set -x
 
+##### setup initramfs with needed files required to execute `adani-cu-arm` applications #####
+
 # use usual '/boot'
 mkdir $DESTDIR/boot/
-# copy needed shared libs & update ld cache
+# copy needed shared libs & update ld cache for node.js binary
 copy_exec /root/bin/node /boot/
-# `node` binary is available on Flash drive with the application code
+# `node` binary is available on Flash drive with the application code, thus delete this
 rm $DESTDIR/boot/node
 
-# cleanup not needed stuff
+# cleanup not needed stuff, `ip` is used to configure networking
 rm $DESTDIR/bin/ifconfig
