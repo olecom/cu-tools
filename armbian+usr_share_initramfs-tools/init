@@ -1,36 +1,63 @@
 #!/bin/sh
 
+set +e
+
 # Default PATH differs between shells, and is not automatically exported
 # by klibc dash.  Make it consistent.
-export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+export PATH=/bin:/sbin:
 
-[ -d /dev ] || mkdir -m 0755 /dev
+[ -d '/dev/' ] || mkdir -m 0755 '/dev/'
 [ -d /root ] || mkdir -m 0700 /root
 [ -d /sys ] || mkdir /sys
 [ -d /proc ] || mkdir /proc
-[ -d /tmp ] || mkdir /tmp
+[ -d /tmp ] || ln -s /dev/shm /tmp
+
 mkdir -p /var/lock
 mount -t sysfs -o nodev,noexec,nosuid sysfs /sys
 mount -t proc -o nodev,noexec,nosuid proc /proc
-
-case " $(cat /proc/cmdline) " in
-*\ quiet\ *)
-	quiet=y
-	;;
-*)
-	quiet=n
-	echo "Loading, please wait..."
-	;;
-esac
-export quiet
-
 # Note that this only becomes /dev on the real filesystem if udev's scripts
 # are used; which they will be, but it's worth pointing out
 mount -t devtmpfs -o nosuid,mode=0755 udev /dev
 mkdir /dev/pts
+mkdir -m 0777 '/dev/shm/'
 mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts || true
 mount -t tmpfs -o "noexec,nosuid,size=10%,mode=0755" tmpfs /run
-mkdir -m 0755 /run/initramfs
+
+case " $(cat /proc/cmdline) " in
+*' quiet '*)
+	quiet=y
+	;;
+*)
+	quiet=n
+	;;
+init=*)
+	init=${x#init=}
+	;;
+root=*)
+	ROOT=${x#root=}
+	if [ -z "${BOOT}" ] && [ "$ROOT" = "/dev/nfs" ]; then
+		BOOT=nfs
+	fi
+	;;
+rootflags=*)
+	ROOTFLAGS="-o ${x#rootflags=}"
+	;;
+rootfstype=*)
+	ROOTFSTYPE="${x#rootfstype=}"
+	;;
+ip=*)
+	IP="${x#ip=}"
+	;;
+ro)
+	ROOTRO='y'
+	''
+esac
+
+test "$quiet" && exec >/dev/null 2>&1
+
+echo '
+Loading GNU/Linux minimal OS for Adani CU, please wait...
+'
 
 # Export the dpkg architecture
 export DPKG_ARCH=
@@ -38,33 +65,6 @@ export DPKG_ARCH=
 
 # Set modprobe env
 export MODPROBE_OPTIONS="-qb"
-
-# Export relevant variables
-export ROOT=
-export ROOTDELAY=
-export ROOTFLAGS=
-export ROOTFSTYPE=
-export IP=
-export IP6=
-export BOOT=
-export BOOTIF=
-export UBIMTD=
-export break=
-export init=/sbin/init
-export readonly=y
-export rootmnt=/root
-export debug=
-export panic=
-export blacklist=
-export resume=
-export resume_offset=
-export drop_caps=
-export fastboot=n
-export forcefsck=n
-export fsckfix=
-export recovery=
-export NETWORK_SKIP_ENSLAVED=
-
 
 # mdadm needs hostname to be set. This has to be done before the udev rules are called!
 if [ -f "/etc/hostname" ]; then
@@ -76,6 +76,35 @@ fi
 for conf in conf/conf.d/*; do
 	[ -f ${conf} ] && . ${conf}
 done
+
+###############################################################################
+# CU boot script #
+##################
+
+set -x
+
+# default networking
+ip link set up dev eth0
+ip addr add 10.0.0.22/16 dev eth0
+
+# mount CU /root fs
+test -n "$ROOT" -a -n "$ROOTFSTYPE" && {
+    mount -t "$ROOTFSTYPE" "-o${ROOTFLAGS:-ro}" "$ROOT" '/root/'
+} || mount -t 'vfat' "-o${ROOTFLAGS:-ro}" '/dev/mmcblk0p1' '/root/'
+
+# CU application run
+test -f /root/adani-cu-arm/run.sh && exec sh -c /root/adani-cu-arm/run.sh
+
+# by default loop with interactive shell otherwise
+exec env sh -c '
+while echo "? Respawn shell..."
+do /bin/sh -i
+done
+'
+# not reached; stops init script here
+
+TODO: delete
+===============================================================================
 . /scripts/functions
 
 # Parse command line options
