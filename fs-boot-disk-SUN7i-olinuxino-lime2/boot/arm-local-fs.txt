@@ -1,0 +1,32 @@
+set -x
+
+__done() {
+: download Armbian fs image
+xz -d Armbian_22.11.1_Lime2_bullseye_current_5.15.80.img.xz
+fallocate -l 2G /mnt/armbian-fs.disk
+dd conv=notrunc of=/mnt/armbian-fs.disk bs=128M if=Armbian_22.11.1_Lime2_bullseye_current_5.15.80.img
+fdisk -lu /mnt/armbian-fs.disk
+mount -o loop,offset=4194304 /mnt/armbian-fs.disk /mnt/arm-root/
+
+# using MS Windows build
+#wget https://download.qemu.org/qemu-7.2.0.tar.xz
+#tar xvJf qemu-7.2.0.tar.xz
+#cd qemu-7.2.0
+#./configure
+#make
+
+wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+make CROSS_COMPILE=arm-linux-uclibcgnueabi
+
+}
+
+  
+
+/e/bin/qemu/qemu-system-arm -M orangepi-pc -m 1G -smp 4\
+    -kernel zImage_Display-5.7.rc.linux \
+    -dtb sun7i-a20-olinuxino-lime2.dtb \
+    -initrd initramfs-5.7.0-rc1-adani-olimex.img \
+    -sd armbian-fs.disk \
+    -append 'console=ttyS0,115200 root=/dev/mmcblk0p1' \
+    -no-reboot -serial stdio -nographic -monitor none
+#    -nic user,hostfwd=tcp::2022-:22,model=allwinner-sun7i-emac \
