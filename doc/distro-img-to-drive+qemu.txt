@@ -1,0 +1,36 @@
+set -x
+
+img_to_drive_file() {
+#: download Armbian fs image
+#xz -d Armbian_22.11.1_Lime2_bullseye_current_5.15.80.img.xz
+#fallocate -l 2G /mnt/armbian-fs.disk
+
+dd conv=notrunc of=/mnt/armbian-fs.disk bs=128M if=Armbian_22.11.1_Lime2_bullseye_current_5.15.80.img
+fdisk -lu /mnt/armbian-fs.disk # ???
+mount -o loop,offset=4194304 /mnt/armbian-fs.disk /mnt/arm-root/
+
+# using MS Windows build
+#wget https://download.qemu.org/qemu-7.2.0.tar.xz
+#tar xvJf qemu-7.2.0.tar.xz
+#cd qemu-7.2.0
+#./configure
+#make
+
+wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+make CROSS_COMPILE=arm-linux-uclibcgnueabi
+
+}
+
+stty -a | grep 'intr = ^C' && stty intr ^Q
+
+/e/bin/qemu/qemu-system-arm -M orangepi-pc -m 1G -smp 4\
+    -kernel vmlinuz-5.15.80-sunxi \
+    -dtb sun8i-h3-orangepi-one.dtb \
+    -initrd initrd.img-5.15.80-sunxi \
+    -sd ../armbian-fs.disk \
+    -append 'console=ttyS0,115200 root=/dev/mmcblk0p1' \
+    -no-reboot -serial stdio -nographic -monitor none
+#    -nic user,hostfwd=tcp::2022-:22,model=allwinner-sun8i-emac \
+
+e:\bin\qemu\qemu-system-arm -M orangepi-pc -m 1G -smp 4 -kernel vmlinuz-5.15.80-sunxi -dtb sun8i-h3-orangepi-one.dtb -initrd initrd.img-5.15.80-sunxi -sd ../armbian-fs.disk -append 'console=ttyS0,115200 root=/dev/mmcblk0p1' -no-reboot -serial stdio -nographic -monitor none
+
