@@ -22,6 +22,7 @@ make CROSS_COMPILE=arm-linux-uclibcgnueabi
 }
 
 stty -a | grep 'intr = ^C' && stty intr ^Q
+#TODO: terminal issues, linux has TERM=linux by default
 
 /e/bin/qemu/qemu-system-arm -M orangepi-pc -m 1G -smp 4\
     -kernel vmlinuz-5.15.80-sunxi \
