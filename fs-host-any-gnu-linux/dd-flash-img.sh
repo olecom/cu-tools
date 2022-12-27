@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DST=/dev/sdb
+DST=/dev/sdc
 
 cat /proc/partitions
 echo "
@@ -12,5 +12,6 @@ Destination device: $DST
     read A
     set -x
     [ y = "$A" ] && dd "if=`echo *.img`" "of=$DST" bs=1M conv=fsync
+    sync
     set +x
 }
