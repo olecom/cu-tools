@@ -3,11 +3,13 @@
 set -x
 
 IMG='initramfs-5.10.105-adani-olimex.img'
+#IMG='initramfs-6.2.0-rc2-adani-olimex-2023-v5-g41c03ba9beea.img'
 DST=/home/olecom/SUNXi-Boards/Adani/git-repos/adani-cu-tools/fs-boot-disk-SUN7i-olinuxino-lime2/boot/
 
 [ -f "./$IMG" ] && rm "$IMG"
 
 cd initramfs-dir || exit 1
+#cd initramfs-dir-linux-master || exit 1
 find . | cpio --quiet -R 0:0 --device-independent -o -H newc | gzip -9 -n >"../$IMG"
 cd ..
 cp "$IMG" "$DST"
