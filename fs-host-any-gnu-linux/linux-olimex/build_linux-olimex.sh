@@ -59,7 +59,7 @@ make -j4 modules
 }
 
 [ 'i' = "$1" -o -z "$1" ] && {
-    make INSTALL_MOD_PATH=.modules-adani-olimex modules_install
+    make INSTALL_MOD_PATH=.modules-adani-olimex modules_install >/dev/null
     echo '
 Copy modules to initramfs'
     rm -rf "$INITRAMFS/lib/modules/"*
