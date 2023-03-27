@@ -72,8 +72,8 @@ echo "
 Copy resulting files into: '$DST'"
 
 cd '.modules-adani-olimex'
-cp ./lib/modules/*-olimex-*/kernel/drivers/media/i2c/* \
-   ./lib/modules/*-olimex-*/kernel/drivers/media/platform/sunxi/sun4i-csi/* \
+cp ./lib/modules/*/kernel/drivers/media/i2c/* \
+   ./lib/modules/*/kernel/drivers/media/platform/sunxi/sun4i-csi/* \
    *.dtb \
    ../.config \
    "$DST"

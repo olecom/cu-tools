@@ -1,0 +1,254 @@
+Booting Linux on physical CPU 0x0
+Linux version 5.10.105-cu-csi-OLIME2-2023-v5-g1b955f3ee7ef-dirty (olecom@olecom-VirtualBox) (arm-linux-gnueabihf-gcc (Ubuntu/Linaro 8.4.0-1ubuntu1~18.04) 8.4.0, GNU ld (GNU Binutils for Ubuntu) 2.32) #16 SMP Mon Mar 27 21:01:23 +03 2023
+CPU: ARMv7 Processor [410fc074] revision 4 (ARMv7), cr=10c5387d
+CPU: div instructions available: patching division code
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Olimex A20-OLinuXino-LIME2
+Memory policy: Data cache writealloc
+Reserved memory: created CMA memory pool at 0x4a000000, size 96 MiB
+OF: reserved mem: initialized node default-pool, compatible id shared-dma-pool
+Zone ranges:
+  Normal   [mem 0x0000000040000000-0x000000007fffffff]
+  HighMem  empty
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000040000000-0x000000007fffffff]
+Initmem setup node 0 [mem 0x0000000040000000-0x000000007fffffff]
+On node 0 totalpages: 262144
+  Normal zone: 2048 pages used for memmap
+  Normal zone: 0 pages reserved
+  Normal zone: 262144 pages, LIFO batch:63
+psci: probing for conduit method from DT.
+psci: Using PSCI v0.1 Function IDs from DT
+percpu: Embedded 15 pages/cpu s30348 r8192 d22900 u61440
+pcpu-alloc: s30348 r8192 d22900 u61440 alloc=15*4096
+pcpu-alloc: [0] 0 [0] 1 
+Built 1 zonelists, mobility grouping on.  Total pages: 260096
+Kernel command line: console=tty0 rootflags=ro loglevel=7 disp.screen0_output_mode=640x480p60 sunxi_ve_mem_reserve=0 sunxi_g2d_mem_reserve=0 sunxi_fb_mem_reserve=16
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 927188K/1048576K available (6144K kernel code, 589K rwdata, 1132K rodata, 1024K init, 256K bss, 23084K reserved, 98304K cma-reserved, 0K highmem)
+SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+rcu: Hierarchical RCU implementation.
+rcu: 	RCU event tracing is enabled.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+GIC: Using split EOI/Deactivate mode
+random: get_random_bytes called from 0x809011a4 with crng_init=0
+arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+Switching to timer-based delay loop, resolution 41ns
+clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+clocksource: hstimer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370868154 ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=240000)
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU: Testing write buffer coherency: ok
+/cpus/cpu@0 missing clock-frequency property
+/cpus/cpu@1 missing clock-frequency property
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+Setting up static identity map for 0x40100000 - 0x40100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+smp: Brought up 1 node, 2 CPUs
+SMP: Total of 2 processors activated (96.00 BogoMIPS).
+CPU: All CPU(s) started in HYP mode.
+CPU: Virtualization extensions available.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 2 part 30 variant 7 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 512 (order: 3, 32768 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered protocol family 16
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+i2c-core: driver [dummy] registered
+thermal_sys: Registered thermal governor 'step_wise'
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 8 bytes.
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+clocksource: Switched to clocksource arch_sys_counter
+NET: Registered protocol family 2
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 6144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered protocol family 1
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Unpacking initramfs...
+Freeing initrd memory: 3600K
+hw perfevents: no interrupt-affinity property for /pmu, guessing.
+hw perfevents: enabled with armv7_cortex_a7 PMU driver, 5 counters available
+workingset: timestamp_bits=30 max_order=18 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+io scheduler bfq registered
+sun4i-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
+sun4i-drm display-engine: bound 1e00000.display-frontend (ops 0x8074e390)
+sun4i-drm display-engine: bound 1e20000.display-frontend (ops 0x8074e390)
+sun4i-drm display-engine: bound 1e60000.display-backend (ops 0x8074db30)
+sun4i-drm display-engine: attempt to add DMA range to existing map
+sun4i-drm display-engine: bound 1e40000.display-backend (ops 0x8074db30)
+sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops 0x8074c490)
+sun4i-drm display-engine: No panel or bridge found... RGB output disabled
+sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops 0x8074c490)
+i2c i2c-0: adapter [sun4i_hdmi_i2c adapter] registered
+sun4i-drm display-engine: bound 1c16000.hdmi (ops 0x8074eab0)
+[drm] Initialized sun4i-drm 1.0.0 20150629 for display-engine on minor 0
+sun4i-drm display-engine: [drm] Cannot find any crtc or sizes
+i2c-core: driver [axp20x-i2c] registered
+sun7i-dwmac 1c50000.ethernet: IRQ eth_wake_irq not found
+sun7i-dwmac 1c50000.ethernet: IRQ eth_lpi not found
+sun7i-dwmac 1c50000.ethernet: PTP uses main clock
+sun7i-dwmac 1c50000.ethernet: no reset control found
+sun7i-dwmac 1c50000.ethernet: no regulator found
+sun7i-dwmac 1c50000.ethernet: Version ID not available
+sun7i-dwmac 1c50000.ethernet: 	DWMAC1000
+sun7i-dwmac 1c50000.ethernet: No HW DMA feature register supported
+sun7i-dwmac 1c50000.ethernet: TX Checksum insertion supported
+sun7i-dwmac 1c50000.ethernet: Normal descriptors
+sun7i-dwmac 1c50000.ethernet: Ring mode enabled
+ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+ehci-platform: EHCI generic platform driver
+ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+ohci-platform: OHCI generic platform driver
+sunxi-rtc 1c20d00.rtc: registered as rtc0
+sunxi-rtc 1c20d00.rtc: setting system clock to 1970-01-01T00:00:12 UTC (12)
+i2c /dev entries driver
+i2c-dev: adapter [sun4i_hdmi_i2c adapter] registered as minor 0
+sun4i-pinctrl 1c20800.pinctrl: supply vcc-pb not found, using dummy regulator
+i2c-dev: adapter [mv64xxx_i2c adapter] registered as minor 1
+i2c i2c-1: adapter [mv64xxx_i2c adapter] registered
+i2c i2c-1: of_i2c: walking child nodes
+i2c i2c-1: of_i2c: register /soc/i2c@1c2ac00/pmic@34
+axp20x-i2c 1-0034: probe
+axp20x-i2c 1-0034: AXP20x variant AXP209 found
+input: axp20x-pek as /devices/platform/soc/1c2ac00.i2c/i2c-1/1-0034/axp20x-pek/input/input0
+vdd-rtc: supplied by regulator-dummy
+avcc: supplied by regulator-dummy
+vddio-csi0: Bringing 2800000uV into 3300000-3300000uV
+vddio-csi0: supplied by regulator-dummy
+vddio-csi1: supplied by regulator-dummy
+ldo5: supplied by regulator-dummy
+vdd-cpu: supplied by regulator-dummy
+vdd-int-dll: supplied by regulator-dummy
+axp20x-i2c 1-0034: AXP20X driver loaded
+i2c i2c-1: client [axp209] registered with bus id 1-0034
+i2c-dev: adapter [mv64xxx_i2c adapter] registered as minor 2
+i2c i2c-2: adapter [mv64xxx_i2c adapter] registered
+i2c i2c-2: of_i2c: walking child nodes
+i2c i2c-2: of_i2c: register /soc/i2c@1c2b000/eeprom@50
+i2c i2c-2: client [24c16] registered with bus id 2-0050
+i2c i2c-2: of_i2c: register /soc/i2c@1c2b000/camera@3c
+i2c i2c-2: client [ov5640] registered with bus id 2-003c
+sunxi-wdt 1c20c90.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+sun4i-pinctrl 1c20800.pinctrl: supply vcc-ph not found, using dummy regulator
+sun4i-ss 1c15000.crypto-engine: Die ID 0
+sunxi-mmc 1c0f000.mmc: Got CD GPIO
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered protocol family 17
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+sunxi-mmc 1c0f000.mmc: initialized, max. request size: 16384 KB
+Freeing unused kernel memory: 1024K
+Run /init as init process
+  with arguments:
+    /init
+  with environment:
+    HOME=/
+    TERM=linux
+    sunxi_ve_mem_reserve=0
+    sunxi_g2d_mem_reserve=0
+    sunxi_fb_mem_reserve=16
+random: fast init done
+mmc0: host does not support reading read-only switch, assuming write-enable
+mmc0: new high speed SDHC card at address aaaa
+mmcblk0: mmc0:aaaa SB32G 29.7 GiB 
+ mmcblk0: p1
+sun7i-dwmac 1c50000.ethernet eth0: PHY [stmmac-0:01] driver [Micrel KSZ9031 Gigabit PHY] (irq=POLL)
+sun7i-dwmac 1c50000.ethernet eth0: No Safety Features support found
+sun7i-dwmac 1c50000.ethernet eth0: RX IPC Checksum Offload disabled
+sun7i-dwmac 1c50000.ethernet eth0: No MAC Management Counters available
+sun7i-dwmac 1c50000.ethernet eth0: PTP not supported by HW
+sun7i-dwmac 1c50000.ethernet eth0: configuring for phy/rgmii-id link mode
+ov5640 2-003c: probe
+?ov5640 csi-dev ov5640_probe  in
+ov5640 2-003c: 5 degrees rotation is not supported, ignoring...
+?ov5640 csi-dev ov5640_probe ? xclk_freq: 16500000
+ov5640 2-003c: supply DOVDD not found, using dummy regulator
+ov5640 2-003c: supply AVDD not found, using dummy regulator
+ov5640 2-003c: supply DVDD not found, using dummy regulator
+?ov5640 csi-dev ov5640_set_power_on  in
+?ov5640 csi-dev ov5640_set_power_off  in
+?ov5640 csi-dev ov5640_probe  OK
+i2c-core: driver [ov5640] registered
+?dvp-csi-dev ?sun4i_csi_probe clk
+?dvp-csi-dev ?sun4i_csi_probe clk bus: 300 MHz, isp: 300 MHz, ram: 384 MHz, pll7: 297000000 MHz, mclk: 16500000 MHz
+sun4i-csi 1c09000.csi: Device registered as video0
+?dvp-csi-dev ?sun4i_csi_open in
+?dvp-csi-dev ?sun4i_csi_runtime_resume in
+?ov5640 csi-dev ov5640_s_power  in
+?ov5640 csi-dev ov5640_set_power_on  in
+?ov5640 csi-dev ov5640_set_mode  in
+?ov5640 csi-dev ov5640_set_dvp_pclk  in rate: 122860800
+?ov5640 csi-dev ov5640_set_dvp_pclk  out
+?ov5640 csi-dev ov5640_set_mode  ret1: 0
+?ov5640 csi-dev ov5640_set_mode  ret2: 0
+?ov5640 csi-dev ov5640_set_mode  out: 0
+?ov5640 csi-dev ov5640_set_framefmt  in format code 1 (1 = MEDIA_BUS_FMT_FIXED)
+?ov5640 csi-dev ov5640_s_power  out
+?ov5640 csi-dev ov5640_s_power  in
+?ov5640 csi-dev ov5640_set_power_off  in
+?ov5640 csi-dev ov5640_s_power  out
+?dvp-csi-dev ?sun4i_csi_runtime_suspend in
+?ov5640 csi-dev ov5640_get_fmt  in
+random: node: uninitialized urandom read (32 bytes read)
+random: node: uninitialized urandom read (4096 bytes read)
+sun7i-dwmac 1c50000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+?dvp-csi-dev ?sun4i_csi_open in
+?dvp-csi-dev ?sun4i_csi_runtime_resume in
+?ov5640 csi-dev ov5640_s_power  in
+?ov5640 csi-dev ov5640_set_power_on  in
+?ov5640 csi-dev ov5640_set_mode  in
+?ov5640 csi-dev ov5640_set_dvp_pclk  in rate: 122860800
+?ov5640 csi-dev ov5640_set_dvp_pclk  out
+?ov5640 csi-dev ov5640_set_mode  ret1: 0
+?ov5640 csi-dev ov5640_set_mode  ret2: 0
+?ov5640 csi-dev ov5640_set_mode  out: 0
+?ov5640 csi-dev ov5640_set_framefmt  in format code 1 (1 = MEDIA_BUS_FMT_FIXED)
+?ov5640 csi-dev ov5640_s_power  out
+?ov5640 csi-dev ov5640_s_power  in
+?ov5640 csi-dev ov5640_set_power_off  in
+?ov5640 csi-dev ov5640_s_power  out
+?dvp-csi-dev ?sun4i_csi_runtime_suspend in
+sun4i-drm display-engine: [drm] Cannot find any crtc or sizes
+vcc3v0: disabling
+vcc5v0: disabling
+ahci-5v: disabling
+usb1-vbus: disabling
+usb2-vbus: disabling
+random: crng init done

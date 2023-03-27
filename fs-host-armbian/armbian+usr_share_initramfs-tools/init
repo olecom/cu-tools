@@ -17,11 +17,22 @@ mount -t sysfs -o nodev,noexec,nosuid sysfs /sys
 mount -t proc -o nodev,noexec,nosuid proc /proc
 # Note that this only becomes /dev on the real filesystem if udev's scripts
 # are used; which they will be, but it's worth pointing out
-mount -t devtmpfs -o nosuid,mode=0755 udev /dev
+mount -t devtmpfs -o nosuid,mode=0755,size=81% udev /dev
 mkdir /dev/pts
 mkdir -m 0777 '/dev/shm/'
 mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts || true
-mount -t tmpfs -o "noexec,nosuid,size=10%,mode=0755" tmpfs /run
+#mount -t tmpfs -o "noexec,nosuid,size=10%,mode=0755" tmpfs /run
+
+(
+    cat \
+        /sys/class/thermal/thermal_zone0/temp \
+        /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq \
+        /proc/version \
+        /proc/mounts
+    df
+    dmesg
+    cat /sys/class/thermal/thermal_zone0/temp
+) >/dev/urandom
 
 case " $(cat /proc/cmdline) " in
 init=*)
