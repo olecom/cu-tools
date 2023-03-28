@@ -75,9 +75,9 @@ cd '.modules-adani-olimex'
 cp ./lib/modules/*/kernel/drivers/media/i2c/* \
    ./lib/modules/*/kernel/drivers/media/platform/sunxi/sun4i-csi/* \
    *.dtb \
-   ../.config \
    "$DST"
 cp 'zImage' "$DST/$LINUX_IMAGE_NAME"
+cp ../.config /home/olecom/SUNXi-Boards/Adani/git-repos/adani-cu-tools/fs-host-any-gnu-linux/linux-olimex/
 
 echo '
 Olimex repo based linux kernel is ready!'

@@ -1,0 +1,381 @@
+/*
+ * Copyright 2014 - Iain Paton <ipaton0@gmail.com>
+ *
+ * This file is dual-licensed: you can use it either under the terms
+ * of the GPL or the X11 license, at your option. Note that this dual
+ * licensing only applies to this file, and not this project as a
+ * whole.
+ *
+ *  a) This file is free software; you can redistribute it and/or
+ *     modify it under the terms of the GNU General Public License as
+ *     published by the Free Software Foundation; either version 2 of the
+ *     License, or (at your option) any later version.
+ *
+ *     This file is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ * Or, alternatively,
+ *
+ *  b) Permission is hereby granted, free of charge, to any person
+ *     obtaining a copy of this software and associated documentation
+ *     files (the "Software"), to deal in the Software without
+ *     restriction, including without limitation the rights to use,
+ *     copy, modify, merge, publish, distribute, sublicense, and/or
+ *     sell copies of the Software, and to permit persons to whom the
+ *     Software is furnished to do so, subject to the following
+ *     conditions:
+ *
+ *     The above copyright notice and this permission notice shall be
+ *     included in all copies or substantial portions of the Software.
+ *
+ *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ *     OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/dts-v1/;
+#include "sun7i-a20.dtsi"
+#include "sunxi-common-regulators.dtsi"
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/ {
+	model = "Olimex A20-OLinuXino-LIME2";
+	compatible = "olimex,a20-olinuxino-lime2", "allwinner,sun7i-a20";
+
+	aliases {
+		serial0 = &uart0;
+	};
+
+	chosen {
+		stdout-path = "serial0:115200n8";
+	};
+
+	hdmi-connector {
+		compatible = "hdmi-connector";
+		type = "a";
+
+		port {
+			hdmi_con_in: endpoint {
+				remote-endpoint = <&hdmi_out_con>;
+			};
+		};
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&led_pins_olinuxinolime>;
+
+		green {
+			label = "a20-olinuxino-lime2:green:usr";
+			gpios = <&pio 7 2 GPIO_ACTIVE_HIGH>;
+			default-state = "on";
+		};
+	};
+
+	reg_axp_ipsout: axp_ipsout {
+		compatible = "regulator-fixed";
+		regulator-name = "axp-ipsout";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		regulator-always-on;
+	};
+};
+
+&ahci {
+	target-supply = <&reg_ahci_5v>;
+	status = "okay";
+};
+
+&codec {
+        status = "okay";
+};
+
+&de {
+	status = "okay";
+};
+
+&ehci0 {
+	status = "okay";
+};
+
+&ehci1 {
+	status = "okay";
+};
+
+&gmac {
+	pinctrl-names = "default";
+	pinctrl-0 = <&gmac_rgmii_pins>;
+	phy-handle = <&phy1>;
+	phy-mode = "rgmii-id";
+	status = "okay";
+};
+
+&hdmi {
+	status = "okay";
+};
+
+&hdmi_out {
+	hdmi_out_con: endpoint {
+		remote-endpoint = <&hdmi_con_in>;
+	};
+};
+
+&i2c0 {
+	status = "okay";
+
+	axp209: pmic@34 {
+		reg = <0x34>;
+		interrupt-parent = <&nmi_intc>;
+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+	};
+};
+
+&i2c1 {
+	status = "okay";
+
+	eeprom: eeprom@50 {
+		compatible = "atmel,24c16";
+		reg = <0x50>;
+		pagesize = <16>;
+	};
+};
+
+/* define CU hardware interface
+CSI0_CLK_REG 0x0134 CSI0 CLOCK REGISTER
+8 R/W 0x0 Gating AHB Clock for CSI0(0: mask, 1: pass).
+AHB_GATING_REG1
+
+CSI0_DCLK_GATING.
+Gating DRAM Clock for CSI0(0: mask, 1: pass).
+*/
+&csi0 {
+	clocks = <&ccu CLK_AHB_CSI0>,
+                <&ccu CLK_CSI_SCLK>,
+                <&ccu CLK_DRAM_CSI0>,
+                /* <&ccu CLK_PLL7_VIDEO1>, */
+                <&ccu CLK_CSI0>;
+	clock-names = "bus", "isp", "ram", /*"pll7",*/ "mclk";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&csi0_8bits_pins>;
+	status = "okay";
+
+	port {
+		/* Parallel bus endpoint */
+		csi0_from_ov5640: endpoint {
+			remote-endpoint = <&ov5640_to_csi0>;
+			bus-width = <8>;
+			hsync-active = <0>; /* HSYNC active 'low' => wire active is 'high' */
+			vsync-active = <1>; /* VSYNC active 'low' => wire active is 'high' */
+			data-active = <1>;  /* Active high */
+			pclk-sample = <1>;  /* Rising */
+		};
+	};
+};
+
+/*
+ * https://docs.kernel.org/i2c/instantiating-devices.html#declare-the-i2c-devices-via-devicetree
+ * https://github.com/OLIMEX/linux-olimex/blob/release-20221011-v5.10.105/Documentation/devicetree/bindings/media/i2c/ov5640.txt
+ *
+ * https://linux-sunxi.org/Clock_Control_Module#CCM_CSI0_CLK
+ * https://www.linuxtv.org/downloads/v4l-dvb-apis/driver-api/camera-sensor.html#devicetree
+ * https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/clock/clock.yaml
+ */
+&i2c1 {
+	status = "okay";
+
+	ov5640: camera@3c {
+		compatible = "ovti,ov5640";
+		reg = <0x3c>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&csi0_clk_pin>;
+		clocks = <&ccu CLK_CSI0>;
+		clock-names = "xclk";
+
+		/* modify default clock sources / frequencies */
+		/* >assigned-clocks = <&ccu CLK_CSI0>, <&ccu CLK_PLL7_VIDEO1>; */
+		/* select CSI0 source clock PLL7 in CSI0_CLK_REG */
+		/* >assigned-clock-parents = <&ccu CLK_PLL7_VIDEO1>; */
+		/*
+		 * the integer mode of PLL7: (3 MHz * (9 + 7)) = 48 MHz
+		 * set CSI0 clock in CSI0_CLK_REG as division by (2 + 1) of the source: 48 MHz / 3 = 16 MHz
+		 * > assigned-clock-rates = <16000000>, <48000000>;
+		 * =====
+		 * the fractional mode of PLL7: 297 MHz
+		 * CSI0 clock in CSI0_CLK_REG: 49.5 / 18 = 16.5 MHz
+		 * > assigned-clock-rates = <16500000>;
+		 */
+
+		/* default main oscillator setup: 24000000 Hz
+		assigned-clocks = <&ccu CLK_CSI0>, <&ccu CLK_HOSC>;
+		assigned-clock-parents = <&ccu CLK_HOSC>;
+		*/
+
+		/*
+		 * https://github.com/OLIMEX/linux-olimex/blob/release-20221011-v5.10.105/Documentation/driver-api/gpio/consumer.rst#the-active-low-and-open-drain-semantics
+		 * [SUNXI_GPIO_G	6] => [pio 6]
+		 */
+		/*start-gpios = <&pio 6 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* CU_START_PG (6) / PIN17 => MC_START * /
+		stop-gpios = <&pio 6 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* CU_STOP_PG  (2) / PIN9  => MC_STOP * /
+		*/
+		rotation = <0>; /* this number can be used as parameter to the driver from kernel space */
+
+		port {
+			ov5640_to_csi0: endpoint {
+				remote-endpoint = <&csi0_from_ov5640>;
+				bus-width = <8>;
+				data-shift = <0>;   /* 0: do not shift data inside possible 10bit bus */
+				hsync-active = <0>; /* HSYNC active 'low' => wire active is 'high' */
+				vsync-active = <1>; /* VSYNC active 'high' => wire active is 'high' */
+				data-active = <1>;  /* Active high */
+				pclk-sample = <1>;  /* Rising */
+			};
+		};
+	};
+};
+/* defined CU hardware interface */
+
+&lradc {
+	vref-supply = <&reg_vcc3v0>;
+};
+
+&gmac_mdio {
+	phy1: ethernet-phy@1 {
+		reg = <1>;
+	};
+};
+
+&mmc0 {
+	vmmc-supply = <&reg_vcc3v3>;
+	bus-width = <4>;
+	cd-gpios = <&pio 7 1 GPIO_ACTIVE_LOW>; /* PH1 */
+	status = "okay";
+};
+
+&ohci0 {
+	status = "okay";
+};
+
+&ohci1 {
+	status = "okay";
+};
+
+&otg_sram {
+	status = "okay";
+};
+
+&pio {
+	vcc-pe-supply = <&reg_ldo3>;
+	vcc-pg-supply = <&reg_ldo4>;
+
+	vcc-pa-supply = <&reg_vcc3v3>;
+	vcc-pc-supply = <&reg_vcc3v3>;
+	vcc-pf-supply = <&reg_vcc3v3>;
+
+	led_pins_olinuxinolime: led-pins {
+		pins = "PH2";
+		function = "gpio_out";
+		drive-strength = <20>;
+	};
+};
+
+&reg_ahci_5v {
+	gpio = <&pio 2 3 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
+
+#include "axp209.dtsi"
+
+&ac_power_supply {
+	status = "okay";
+};
+
+&battery_power_supply {
+	status = "okay";
+};
+
+&reg_dcdc2 {
+	regulator-always-on;
+	regulator-min-microvolt = <1000000>;
+	regulator-max-microvolt = <1400000>;
+	regulator-name = "vdd-cpu";
+};
+
+&reg_dcdc3 {
+	regulator-always-on;
+	regulator-min-microvolt = <1000000>;
+	regulator-max-microvolt = <1400000>;
+	regulator-name = "vdd-int-dll";
+};
+
+&reg_ldo1 {
+	regulator-always-on;
+	regulator-min-microvolt = <1300000>;
+	regulator-max-microvolt = <1300000>;
+	regulator-name = "vdd-rtc";
+};
+
+&reg_ldo2 {
+	regulator-always-on;
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <3000000>;
+	regulator-name = "avcc";
+};
+
+&reg_ldo3 {
+	regulator-always-on;
+	regulator-min-microvolt = <3300000>;
+	regulator-max-microvolt = <3300000>;
+	regulator-name = "vddio-csi0";
+	regulator-ramp-delay = <1600>;
+};
+
+&reg_ldo4 {
+	regulator-always-on;
+	regulator-min-microvolt = <3300000>;
+	regulator-max-microvolt = <3300000>;
+	regulator-name = "vddio-csi1";
+};
+
+&reg_usb0_vbus {
+	gpio = <&pio 2 17 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
+
+&reg_usb1_vbus {
+	status = "okay";
+};
+
+&reg_usb2_vbus {
+	status = "okay";
+};
+
+&uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pb_pins>;
+	status = "okay";
+};
+
+&usb_otg {
+	dr_mode = "otg";
+	status = "okay";
+};
+
+&usbphy {
+	usb0_id_det-gpios = <&pio 7 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>; /* PH4 */
+	usb0_vbus_det-gpios = <&pio 7 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; /* PH5 */
+	usb0_vbus-supply = <&reg_usb0_vbus>;
+	usb1_vbus-supply = <&reg_usb1_vbus>;
+	usb2_vbus-supply = <&reg_usb2_vbus>;
+	status = "okay";
+};

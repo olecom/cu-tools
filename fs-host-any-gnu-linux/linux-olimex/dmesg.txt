@@ -1,8 +1,6 @@
-
-Video camera 'ov5640 2-003c' exec pid: 155
 + dmesg
 Booting Linux on physical CPU 0x0
-Linux version 5.10.105-cu-csi-OLIME2-2023-v5-g1b955f3ee7ef-dirty (olecom@olecom-VirtualBox) (arm-linux-gnueabihf-gcc (Ubuntu/Linaro 8.4.0-1ubuntu1~18.04) 8.4.0, GNU ld (GNU Binutils for Ubuntu) 2.32) #16 SMP Mon Mar 27 21:01:23 +03 2023
+Linux version 5.10.105-cu-csi-OLIME2-2023-v6-g1b955f3ee7ef-dirty (olecom@olecom-VirtualBox) (arm-linux-gnueabihf-gcc (Ubuntu/Linaro 8.4.0-1ubuntu1~18.04) 8.4.0, GNU ld (GNU Binutils for Ubuntu) 2.32) #24 SMP Tue Mar 28 17:42:11 +03 2023
 CPU: ARMv7 Processor [410fc074] revision 4 (ARMv7), cr=10c5387d
 CPU: div instructions available: patching division code
 CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
@@ -31,14 +29,13 @@ Kernel command line: console=tty0 rootflags=ro loglevel=7 disp.screen0_output_mo
 Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
 Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
 mem auto-init: stack:off, heap alloc:off, heap free:off
-Memory: 927188K/1048576K available (6144K kernel code, 589K rwdata, 1132K rodata, 1024K init, 256K bss, 23084K reserved, 98304K cma-reserved, 0K highmem)
+Memory: 927188K/1048576K available (6144K kernel code, 589K rwdata, 1136K rodata, 1024K init, 256K bss, 23084K reserved, 98304K cma-reserved, 0K highmem)
 SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
 rcu: Hierarchical RCU implementation.
-rcu: 	RCU event tracing is enabled.
 rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
 NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
 GIC: Using split EOI/Deactivate mode
-random: get_random_bytes called from 0x809011a4 with crng_init=0
+random: get_random_bytes called from 0x809011b4 with crng_init=0
 arch_timer: cp15 timer(s) running at 24.00MHz (phys).
 clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
 sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
@@ -70,7 +67,6 @@ futex hash table entries: 512 (order: 3, 32768 bytes, linear)
 pinctrl core: initialized pinctrl subsystem
 NET: Registered protocol family 16
 DMA: preallocated 256 KiB pool for atomic coherent allocations
-i2c-core: driver [dummy] registered
 thermal_sys: Registered thermal governor 'step_wise'
 hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
 hw-breakpoint: maximum watchpoint size is 8 bytes.
@@ -105,23 +101,21 @@ workingset: timestamp_bits=30 max_order=18 bucket_order=0
 NFS: Registering the id_resolver key type
 Key type id_resolver registered
 Key type id_legacy registered
-Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
 io scheduler bfq registered
 sun4i-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
-sun4i-drm display-engine: bound 1e00000.display-frontend (ops 0x8074e390)
-sun4i-drm display-engine: bound 1e20000.display-frontend (ops 0x8074e390)
-sun4i-drm display-engine: bound 1e60000.display-backend (ops 0x8074db30)
+sun4i-drm display-engine: bound 1e00000.display-frontend (ops 0x8074dce0)
+sun4i-drm display-engine: bound 1e20000.display-frontend (ops 0x8074dce0)
+sun4i-drm display-engine: bound 1e60000.display-backend (ops 0x8074d480)
 sun4i-drm display-engine: attempt to add DMA range to existing map
-sun4i-drm display-engine: bound 1e40000.display-backend (ops 0x8074db30)
+sun4i-drm display-engine: bound 1e40000.display-backend (ops 0x8074d480)
 sun4i-drm display-engine: No panel or bridge found... RGB output disabled
-sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops 0x8074c490)
+sun4i-drm display-engine: bound 1c0c000.lcd-controller (ops 0x8074bde0)
 sun4i-drm display-engine: No panel or bridge found... RGB output disabled
-sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops 0x8074c490)
-i2c i2c-0: adapter [sun4i_hdmi_i2c adapter] registered
-sun4i-drm display-engine: bound 1c16000.hdmi (ops 0x8074eab0)
+sun4i-drm display-engine: bound 1c0d000.lcd-controller (ops 0x8074bde0)
+sun4i-drm display-engine: bound 1c16000.hdmi (ops 0x8074e400)
 [drm] Initialized sun4i-drm 1.0.0 20150629 for display-engine on minor 0
 sun4i-drm display-engine: [drm] Cannot find any crtc or sizes
-i2c-core: driver [axp20x-i2c] registered
 sun7i-dwmac 1c50000.ethernet: IRQ eth_wake_irq not found
 sun7i-dwmac 1c50000.ethernet: IRQ eth_lpi not found
 sun7i-dwmac 1c50000.ethernet: PTP uses main clock
@@ -138,15 +132,9 @@ ehci-platform: EHCI generic platform driver
 ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
 ohci-platform: OHCI generic platform driver
 sunxi-rtc 1c20d00.rtc: registered as rtc0
-sunxi-rtc 1c20d00.rtc: setting system clock to 1970-01-01T00:36:56 UTC (2216)
+sunxi-rtc 1c20d00.rtc: setting system clock to 1970-01-01T01:23:50 UTC (5030)
 i2c /dev entries driver
-i2c-dev: adapter [sun4i_hdmi_i2c adapter] registered as minor 0
 sun4i-pinctrl 1c20800.pinctrl: supply vcc-pb not found, using dummy regulator
-i2c-dev: adapter [mv64xxx_i2c adapter] registered as minor 1
-i2c i2c-1: adapter [mv64xxx_i2c adapter] registered
-i2c i2c-1: of_i2c: walking child nodes
-i2c i2c-1: of_i2c: register /soc/i2c@1c2ac00/pmic@34
-axp20x-i2c 1-0034: probe
 axp20x-i2c 1-0034: AXP20x variant AXP209 found
 input: axp20x-pek as /devices/platform/soc/1c2ac00.i2c/i2c-1/1-0034/axp20x-pek/input/input0
 vdd-rtc: supplied by regulator-dummy
@@ -158,14 +146,8 @@ ldo5: supplied by regulator-dummy
 vdd-cpu: supplied by regulator-dummy
 vdd-int-dll: supplied by regulator-dummy
 axp20x-i2c 1-0034: AXP20X driver loaded
-i2c i2c-1: client [axp209] registered with bus id 1-0034
-i2c-dev: adapter [mv64xxx_i2c adapter] registered as minor 2
-i2c i2c-2: adapter [mv64xxx_i2c adapter] registered
-i2c i2c-2: of_i2c: walking child nodes
-i2c i2c-2: of_i2c: register /soc/i2c@1c2b000/eeprom@50
-i2c i2c-2: client [24c16] registered with bus id 2-0050
-i2c i2c-2: of_i2c: register /soc/i2c@1c2b000/camera@3c
-i2c i2c-2: client [ov5640] registered with bus id 2-003c
+axp20x-battery-power-supply axp20x-battery-power-supply: DMA mask not set
+axp20x-ac-power-supply axp20x-ac-power-supply: DMA mask not set
 sunxi-wdt 1c20c90.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
 sun4i-pinctrl 1c20800.pinctrl: supply vcc-ph not found, using dummy regulator
 sun4i-ss 1c15000.crypto-engine: Die ID 0
@@ -173,9 +155,11 @@ sunxi-mmc 1c0f000.mmc: Got CD GPIO
 hid: raw HID events driver (C) Jiri Kosina
 usbcore: registered new interface driver usbhid
 usbhid: USB HID core driver
+axp20x-adc axp20x-adc: DMA mask not set
 NET: Registered protocol family 17
 Key type dns_resolver registered
 Registering SWP/SWPB emulation handler
+random: fast init done
 sunxi-mmc 1c0f000.mmc: initialized, max. request size: 16384 KB
 Freeing unused kernel memory: 1024K
 Run /init as init process
@@ -187,7 +171,6 @@ Run /init as init process
     sunxi_ve_mem_reserve=0
     sunxi_g2d_mem_reserve=0
     sunxi_fb_mem_reserve=16
-random: fast init done
 mmc0: host does not support reading read-only switch, assuming write-enable
 mmc0: new high speed SDHC card at address aaaa
 mmcblk0: mmc0:aaaa SB32G 29.7 GiB 
@@ -198,7 +181,6 @@ sun7i-dwmac 1c50000.ethernet eth0: RX IPC Checksum Offload disabled
 sun7i-dwmac 1c50000.ethernet eth0: No MAC Management Counters available
 sun7i-dwmac 1c50000.ethernet eth0: PTP not supported by HW
 sun7i-dwmac 1c50000.ethernet eth0: configuring for phy/rgmii-id link mode
-ov5640 2-003c: probe
 ?ov5640 csi-dev ov5640_probe  in
 ?ov5640 csi-dev ov5640_probe ? xclk_freq: 24000000
 ov5640 2-003c: supply DOVDD not found, using dummy regulator
@@ -207,9 +189,9 @@ ov5640 2-003c: supply DVDD not found, using dummy regulator
 ?ov5640 csi-dev ov5640_set_power_on  in
 ?ov5640 csi-dev ov5640_set_power_off  in
 ?ov5640 csi-dev ov5640_probe  OK
-i2c-core: driver [ov5640] registered
+sun4i-csi 1c09000.csi: pll7 clock is not used for CSI
 ?dvp-csi-dev ?sun4i_csi_probe clk
-?dvp-csi-dev ?sun4i_csi_probe clk bus: 300 MHz, isp: 300 MHz, ram: 384 MHz, pll7: 297000000 Hz, mclk: 24000000 Hz
+?dvp-csi-dev ?sun4i_csi_probe clk bus: 300 MHz, isp: 300 MHz, ram: 384 MHz, pll7: 0 Hz, mclk: 24000000 Hz
 sun4i-csi 1c09000.csi: Device registered as video0
 ?dvp-csi-dev ?sun4i_csi_open in
 ?dvp-csi-dev ?sun4i_csi_runtime_resume in
@@ -247,11 +229,33 @@ devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
 /dev/mmcblk0p1 /root vfat ro,relatime,fmask=0022,dmask=0022,codepage=1251,iocharset=cp1251,shortname=mixed,utf8,errors=remount-ro 0 0
 + cat /proc/cmdline
 console=tty0 rootflags=ro loglevel=7 disp.screen0_output_mode=640x480p60 sunxi_ve_mem_reserve=0 sunxi_g2d_mem_reserve=0 sunxi_fb_mem_reserve=16
-+ cat /proc/version
-Linux version 5.10.105-cu-csi-OLIME2-2023-v5-g1b955f3ee7ef-dirty (olecom@olecom-VirtualBox) (arm-linux-gnueabihf-gcc (Ubuntu/Linaro 8.4.0-1ubuntu1~18.04) 8.4.0, GNU ld (GNU Binutils for Ubuntu) 2.32) #16 SMP Mon Mar 27 21:01:23 +03 2023
++ cat /proc/cpuinfo
+processor	: 0
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 50.52
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xc07
+CPU revision	: 4
+
+processor	: 1
+model name	: ARMv7 Processor rev 4 (v7l)
+BogoMIPS	: 50.52
+Features	: half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt vfpd32 lpae evtstrm 
+CPU implementer	: 0x41
+CPU architecture: 7
+CPU variant	: 0x0
+CPU part	: 0xc07
+CPU revision	: 4
+
+Hardware	: Allwinner sun7i (A20) Family
+Revision	: 0000
+Serial		: 165166010582c3c8
 + df
 Filesystem           1K-blocks      Used Available Use% Mounted on
-udev                    834396        40    834356   0% /dev
+udev                    834396        16    834380   0% /dev
 /dev/mmcblk0p1        31154688     59488  31095200   0% /root
-+ exec du -h /dev/shm/
-40.0K	/dev/shm/
++ exec echo '__ system info ends here.'
+__ system info ends here.
