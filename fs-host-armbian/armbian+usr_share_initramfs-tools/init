@@ -2,26 +2,31 @@
 
 set +e
 
-# Default PATH differs between shells, and is not automatically exported
-# by klibc dash.  Make it consistent.
+echo '
+Loading Armbian-based GNU/Linux minimal OS for ARM-based CU board, please wait...
+'
+
+export MODPROBE_OPTIONS="-qb"
 export PATH=/bin:/sbin:
 
 [ -d '/dev/' ] || mkdir -m 0755 '/dev/'
 [ -d /root ] || mkdir -m 0700 /root
 [ -d /sys ] || mkdir /sys
 [ -d /proc ] || mkdir /proc
-[ -d /tmp ] || ln -s /dev/shm /tmp
 
-mkdir -p /var/lock
 mount -t sysfs -o nodev,noexec,nosuid sysfs /sys
 mount -t proc -o nodev,noexec,nosuid proc /proc
-# Note that this only becomes /dev on the real filesystem if udev's scripts
-# are used; which they will be, but it's worth pointing out
-mount -t devtmpfs -o nosuid,mode=0755,size=81% udev /dev
+mount -t devtmpfs -o nosuid,mode=0755,size=95% udev /dev
+
 mkdir /dev/pts
+mkdir -p '/var/lock'
 mkdir -m 0777 '/dev/shm/'
-mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts || true
-#mount -t tmpfs -o "noexec,nosuid,size=10%,mode=0755" tmpfs /run
+
+mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts
+
+ln -s '/dev/shm' '/tmp'
+TMPDIR='/tmp'
+export TMPDIR
 
 (
     cat \
@@ -33,6 +38,8 @@ mount -t devpts -o noexec,nosuid,gid=5,mode=0620 devpts /dev/pts || true
     dmesg
     cat /sys/class/thermal/thermal_zone0/temp
 ) >/dev/urandom
+
+IP=10.0.0.22
 
 case " $(cat /proc/cmdline) " in
 init=*)
@@ -53,45 +60,22 @@ rootfstype=*)
 ip=*)
 	IP="${x#ip=}"
 	;;
-ro)
-	ROOTRO='y'
-	''
 esac
-
-echo '
-Loading Armbian-based GNU/Linux minimal OS for ARM-based Adani CU board, please wait...
-'
-
-# Export the dpkg architecture
-export DPKG_ARCH=
-. /conf/arch.conf
-
-# Set modprobe env
-export MODPROBE_OPTIONS="-qb"
 
 # mdadm needs hostname to be set. This has to be done before the udev rules are called!
 if [ -f "/etc/hostname" ]; then
     /bin/hostname -F /etc/hostname >/dev/null 2>&1
 fi
 
-# Bring in the main config
-. /conf/initramfs.conf
-for conf in conf/conf.d/*; do
-	[ -f ${conf} ] && . ${conf}
-done
-
-###############################################################################
+##################
 # CU boot script #
 ##################
-
-TMPDIR=/dev/shm/
-export TMPDIR
 
 set -x
 
 # default networking
 ip link set up dev eth0
-ip addr add 10.0.0.22/16 dev eth0
+ip addr add $IP/16 dev eth0
 
 # mount CU /root fs
 test -n "$ROOT" -a -n "$ROOTFSTYPE" && {
@@ -99,7 +83,7 @@ test -n "$ROOT" -a -n "$ROOTFSTYPE" && {
 } || mount -t 'vfat' "-o${ROOTFLAGS:-ro}" '/dev/mmcblk0p1' '/root/'
 
 # CU application run
-test -f /root/adani-cu-arm/run.sh && exec sh -c /root/adani-cu-arm/run.sh
+test -f '/root/cu-arm/run.sh' && sh -c '/root/cu-arm/run.sh'
 
 # by default loop with interactive shell otherwise
 exec env sh -c '
