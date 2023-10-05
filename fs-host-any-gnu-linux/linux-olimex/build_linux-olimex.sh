@@ -66,7 +66,7 @@ Copy modules to initramfs'
     cp -r .modules-adani-olimex/lib/modules/* "$INITRAMFS/lib/modules/"
 }
 
-cp arch/arm/boot/dts/sun7i-a20-olinuxino-lime2*.dtb .modules-adani-olimex
+cp arch/arm/boot/dts/sun7i-a20-olinuxino-lime*.dtb .modules-adani-olimex
 
 echo "
 Copy resulting files into: '$DST'"
