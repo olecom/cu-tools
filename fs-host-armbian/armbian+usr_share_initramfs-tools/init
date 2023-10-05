@@ -29,14 +29,9 @@ TMPDIR='/tmp'
 export TMPDIR
 
 (
-    cat \
-        /sys/class/thermal/thermal_zone0/temp \
-        /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq \
-        /proc/version \
-        /proc/mounts
+    cat /proc/version /proc/mounts
     df
     dmesg
-    cat /sys/class/thermal/thermal_zone0/temp
 ) >/dev/urandom
 
 IP=10.0.0.22
@@ -83,7 +78,8 @@ test -n "$ROOT" -a -n "$ROOTFSTYPE" && {
 } || mount -t 'vfat' "-o${ROOTFLAGS:-ro}" '/dev/mmcblk0p1' '/root/'
 
 # CU application run
-test -f '/root/cu-arm/run.sh' && sh -c '/root/cu-arm/run.sh'
+cd '/root/CU-ARM' || cd '/root/cu-arm'
+sh -c './run.sh' || sh -c './RUN.SH'
 
 # by default loop with interactive shell otherwise
 exec env sh -c '

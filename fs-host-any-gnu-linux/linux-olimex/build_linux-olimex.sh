@@ -2,15 +2,15 @@
 # "$1" -- if set, skip menu && building bzImage, only dtb and modules
 # "$1" = 'i' -- install modules
 
-set +x +e
+set +e
 
 # goto own directory
 cd "${0%/*}" 2>/dev/null || :
 
-LINUX_IMAGE_NAME=zImage_Display-5.10.105.linux
+LINUX_IMAGE_NAME=zImage_Display-5.10.105-v7.linux
 
-GIT_REPO_MODULES=/home/olecom/SUNXi-Boards/Adani/git-repos/adani-linux-drivers
-DST=/home/olecom/SUNXi-Boards/Adani/git-repos/adani-cu-tools/fs-boot-disk-SUN7i-olinuxino-lime2/boot
+GIT_REPO_MODULES=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-linux-drivers
+DST=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-boot-disk-SUN7i-olinuxino-limeX/boot
 INITRAMFS=/home/olecom/SUNXi-Boards/Armbian/initramfs-files/initramfs-dir
 
 ARCH=arm
@@ -45,7 +45,7 @@ test ! -L "$SRC" && {
     ln -s "$GIT" "$SRC"
 }
 
-[ -d '.modules-adani-olimex' ] || mkdir '.modules-adani-olimex'
+[ -d '.modules-olimex' ] || mkdir '.modules-olimex'
 
 # copy some existing config file manually if needed
 [ "$1" ] || make menuconfig
@@ -54,30 +54,28 @@ make dtbs
 make -j4 modules
 
 [ "$1" ] || {
-    make -j4 bzImage
-    mv arch/arm/boot/zImage .modules-adani-olimex
+    make -j4 bzImage && cp 'arch/arm/boot/zImage' "$DST/$LINUX_IMAGE_NAME"
 }
 
 [ 'i' = "$1" -o -z "$1" ] && {
-    make INSTALL_MOD_PATH=.modules-adani-olimex modules_install >/dev/null
+    rm -rf "$INITRAMFS/lib/modules/"* .modules-olimex/lib/modules/*
+    make INSTALL_MOD_PATH=.modules-olimex modules_install >/dev/null
     echo '
 Copy modules to initramfs'
-    rm -rf "$INITRAMFS/lib/modules/"*
-    cp -r .modules-adani-olimex/lib/modules/* "$INITRAMFS/lib/modules/"
+    cp -r .modules-olimex/lib/modules/* "$INITRAMFS/lib/modules/"
 }
 
-cp arch/arm/boot/dts/sun7i-a20-olinuxino-lime*.dtb .modules-adani-olimex
+cp arch/arm/boot/dts/sun7i-a20-olinuxino-lime*.dtb .modules-olimex
 
 echo "
 Copy resulting files into: '$DST'"
 
-cd '.modules-adani-olimex'
+cd '.modules-olimex'
 cp ./lib/modules/*/kernel/drivers/media/i2c/* \
    ./lib/modules/*/kernel/drivers/media/platform/sunxi/sun4i-csi/* \
    *.dtb \
    "$DST"
-cp 'zImage' "$DST/$LINUX_IMAGE_NAME"
-cp ../.config /home/olecom/SUNXi-Boards/Adani/git-repos/adani-cu-tools/fs-host-any-gnu-linux/linux-olimex/
+cp ../.config /home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-host-any-gnu-linux/linux-olimex/
 
 echo '
 Olimex repo based linux kernel is ready!'

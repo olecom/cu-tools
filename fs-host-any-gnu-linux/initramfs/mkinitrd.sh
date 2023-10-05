@@ -2,9 +2,9 @@
 
 set -x
 
-IMG='initramfs-5.10.105-cu-olimex.img'
+IMG='initramfs-5.10.105-v7-olimex.img'
 #IMG='initramfs-6.2.0-rc2-adani-olimex-2023-v5-g41c03ba9beea.img'
-DST=/home/olecom/SUNXi-Boards/Adani/git-repos/adani-cu-tools/fs-boot-disk-SUN7i-olinuxino-limeX/boot/
+DST=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-boot-disk-SUN7i-olinuxino-limeX/boot/
 
 [ -f "./$IMG" ] && rm "$IMG"
 
