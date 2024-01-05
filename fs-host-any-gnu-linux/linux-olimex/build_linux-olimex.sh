@@ -1,5 +1,6 @@
 #!/bin/sh
 # "$1" -- if set, skip menu && building bzImage, only dtb and modules
+# "$1" = 'd' name csi driver as dummy in cu-tools directory
 # "$1" = 'i' -- install modules
 
 set +e
@@ -57,7 +58,7 @@ make -j4 modules
     make -j4 bzImage && cp 'arch/arm/boot/zImage' "$DST/$LINUX_IMAGE_NAME"
 }
 
-[ 'i' = "$1" -o -z "$1" ] && {
+[ 'i' = "$1" -o 'd' = "$1" -o -z "$1" ] && {
     rm -rf "$INITRAMFS/lib/modules/"* .modules-olimex/lib/modules/*
     make INSTALL_MOD_PATH=.modules-olimex modules_install >/dev/null
     echo '
@@ -76,6 +77,8 @@ cp ./lib/modules/*/kernel/drivers/media/i2c/* \
    *.dtb \
    "$DST"
 cp ../.config /home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-host-any-gnu-linux/linux-olimex/
+
+test 'd' = "$1" && mv "$DST/sun4i-csi.ko" "$DST/sun4i-csi_dummy.ko"
 
 echo '
 Olimex repo based linux kernel is ready!'
