@@ -8,7 +8,7 @@ set +e
 # goto own directory
 cd "${0%/*}" 2>/dev/null || :
 
-LINUX_IMAGE_NAME=zImage-5.10.105-v8.linux
+LINUX_IMAGE_NAME=zImage-5.10.105-v9.linux
 
 GIT_REPO_MODULES=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-linux-drivers
 DST=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-boot-disk-SUN7i-olinuxino-limeX/boot
@@ -52,7 +52,12 @@ test ! -L "$SRC" && {
 [ "$1" ] || make menuconfig
 
 make dtbs
+
+test 'd' = "$1" && sed -i '/[/][/]#define CSI_DUMMY/s_//__' drivers/media/platform/sunxi/sun4i-csi/sun4i_csi.h
+
 make -j4 modules
+
+test 'd' = "$1" && sed -i '/#define CSI_DUMMY/s_^_//_' drivers/media/platform/sunxi/sun4i-csi/sun4i_csi.h
 
 [ "$1" ] || {
     make -j4 bzImage && cp 'arch/arm/boot/zImage' "$DST/$LINUX_IMAGE_NAME"
@@ -78,7 +83,11 @@ cp ./lib/modules/*/kernel/drivers/media/i2c/* \
    "$DST"
 cp ../.config /home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-host-any-gnu-linux/linux-olimex/
 
-test 'd' = "$1" && mv "$DST/sun4i-csi.ko" "$DST/sun4i-csi_dummy.ko"
+test 'd' = "$1" && {
+    mv "$DST/sun4i-csi.ko" "$DST/sun4i-csi_dummy.ko"
+    echo '
+Created dummy driver to be used for development without need of FPGA/Camera'
+}
 
 echo '
 Olimex repo based linux kernel is ready!'
