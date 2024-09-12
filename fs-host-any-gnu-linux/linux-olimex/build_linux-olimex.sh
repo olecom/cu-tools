@@ -8,7 +8,7 @@ set +e
 # goto own directory
 cd "${0%/*}" 2>/dev/null || :
 
-LINUX_IMAGE_NAME=zImage-5.10.105-v9.linux
+LINUX_IMAGE_NAME=zImage-5.10.105-v8.linux
 
 GIT_REPO_MODULES=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-linux-drivers
 DST=/home/olecom/SUNXi-Boards/Adani/git-repos/cu-tools/fs-boot-disk-SUN7i-olinuxino-limeX/boot
